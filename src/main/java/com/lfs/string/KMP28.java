@@ -2,44 +2,58 @@ package com.lfs.string;
 
 /*
     找出字符串中第一个匹配项的下标
-    可以看本地的文件夹存的kmp
  */
 public class KMP28 {
+    //前缀表（不减一）Java实现
+    public int strStr(String haystack, String needle) {
+        if (needle.length() == 0) return 0;
+        int[] next = new int[needle.length()];
+        getNext(next, needle);
 
-    /*
+        int j = 0;
+        for (int i = 0; i < haystack.length(); i++) {
+            while (j > 0 && needle.charAt(j) != haystack.charAt(i)) {
+                j = next[j - 1];
+            }
+            if (needle.charAt(j) == haystack.charAt(i)) {
+                j++;
+            }
+            if (j == needle.length()) {// 模式串与主串匹配成功返回长度
+                return i - needle.length() + 1;// 2 -3 + 1 i是0 1 2,等j==needle.length(),i这时是2
+            }
+        }
+        return -1;
 
-         aabaabaaf
-         aabaaf
-         与其相等前缀的后面 b
-         找最长相等前后缀
+    }
 
-         求前缀表:
-         什么是前缀? 包含首字母,不包含尾字母的所有子串
-         aabaaf的前缀:
-                               前缀             后缀:                  最长相等前后缀
-            a                 无                                         0
-            aa                a                 a                        1
-            aab               a,aa              b,ab                     0
-            aaba              a,aa,aab          a,b,aba                  1
-            aabaa             a,aa,aab,aaba     a,aa,baa,abaa            2
-            aabaaf 不是前缀      无               无                        0
+    // 求next数组
+    private void getNext(int[] next, String s) {
+        /*
+            j: 前缀末尾  i:后缀末尾
+            后缀为主串,前缀为模式串 进行自匹配
+            j:还代表着i之前包括i子串的最长相等前后缀的长度
+            s.length(): 模式串长度
 
-        索引:0 1 2 3 4 5 6 7 8
-            a a b a a b a a f
-            a a b a a f
-            0 1 0 1 2 0             2这些数字(最长相等后缀): 表示下次移动,移动到索引2位置上...
-                                    **这里有一个后缀aa,前面也有一个与其相等的前缀aa,在后缀的后面不匹配了,我们找与其相等前缀的后面开始匹配。** 这句话非常重要
-                                    与其相等前缀的后面下标(索引)是多少呢? 就是aabaa最长相等前后缀的长度
-                                    我们跳到索引为2的位置继续匹配,为什么?
-                                    2正好是前后缀的长度,我们的目的是要跳到前缀的后面开始匹配,前缀的后面正好是前后缀的长度2(索引比长度小1)
+         */
+        int j = 0;
+        next[0] = 0;// 第一位只会是0
+        for (int i = 1; i < s.length(); i++) {
+            /*
+                不相等,持续回退,回退位置:前一个元素的next数组大小 作为索引位置 且索引不能为负数
+             */
+            while (j > 0 && s.charAt(j) != s.charAt(i)) {
+                j = next[j - 1];
 
-            a a b a a b a a f
-                  a a b a a f
-                  0 1 0 1 2 0
-        索引:0 1 2 3 4 5 6 7 8
+            }
+            if (s.charAt(j) == s.charAt(i)) {//匹配成功 i,j都向前移动一步
+                j++;
+            }
+            next[i] = j;//填充next数组
+        }
+    }
 
-
-         如何使用前缀表进行匹配:
-     */
-
+    public static void main(String[] args) {
+        int i = new KMP28().strStr("sadbutsad", "sad");
+        System.out.println(i);
+    }
 }
