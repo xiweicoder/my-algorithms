@@ -3,7 +3,7 @@ package com.lfs.queue;
 import java.util.Stack;
 
 /*
-    用栈实现队列
+    用栈实现队列 232
     用两个栈实现队列,入栈直接放入stackIn，
     出栈时,先将stackIn元素全都放入stackOut(dumpStackIn),再正常弹出元素
  */

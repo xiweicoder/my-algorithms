@@ -1,12 +1,18 @@
 package com.lfs.string;
 
+import java.sql.Array;
+import java.util.Arrays;
+import java.util.Stack;
+
 public class test {
     public static void main(String[] args) {
-        String s = "abcdefg";
-        char[] chars = s.toCharArray();
-        String s1 = new String(chars, 0, 1);
+        Stack<Integer> stack = new Stack<>();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
 
-        System.out.println(s1);
-
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
     }
 }
+

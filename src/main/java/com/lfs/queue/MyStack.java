@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /*
-    用队列实现栈
+    用一个队列实现栈225
  */
 public class MyStack {
     Queue<Integer> queue;
@@ -26,7 +26,7 @@ public class MyStack {
 
     // 返回栈顶元素
     /*
-        不同在不删除,反而要麻烦,拿到要弹出的元素,在展示完后重新再压入栈顶(push)
+        不同在不删除操作,反而要麻烦,拿到弹出的元素,在展示完后重新再压入栈顶(push)
      */
     public int top() {
         rePosition();
