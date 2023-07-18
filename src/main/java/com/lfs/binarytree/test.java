@@ -1,34 +1,30 @@
 package com.lfs.binarytree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
 public class test {
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        return constructMaximumBinaryTree1(nums, 0, nums.length);
+    }
 
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> resList = new ArrayList<List<Integer>>();
+    private TreeNode constructMaximumBinaryTree1(int[] nums, int left, int right) {
+        if (right - left < 1) return null;
 
-//        if (root == null) return;
-        Queue<TreeNode> que = new LinkedList<TreeNode>();
-        que.offer(root);
-
-        while (!que.isEmpty()) {
-            List<Integer> itemList = new ArrayList<Integer>();
-            int len = que.size();
-
-            while (len > 0) {
-                TreeNode tmpNode = que.poll();
-                itemList.add(tmpNode.val);
-
-                if (tmpNode.left != null) que.offer(tmpNode.left);
-                if (tmpNode.right != null) que.offer(tmpNode.right);
-                len--;
-            }
-            resList.add(itemList);
+        if (right - left == 1) {
+            return new TreeNode(nums[left]);
         }
-        return resList;
+
+        int maxIndex = left;
+        int max = nums[maxIndex];
+        for (int i = left; i < nums.length; i++) {
+            if (nums[i] > max) {
+                max = nums[i];
+                maxIndex = i;
+            }
+        }
+        TreeNode root = new TreeNode(max);
+
+        root.left = constructMaximumBinaryTree1(nums, left, maxIndex);
+        root.right = constructMaximumBinaryTree1(nums, maxIndex + 1, right);
+        return root;
     }
 
 }

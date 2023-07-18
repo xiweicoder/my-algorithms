@@ -10,8 +10,8 @@ import java.util.List;
     走的路径一样
  */
 public class PreorderTraversal144 {
-    // 方法一
     /*
+        方法一
         思路: 遍历左节点,一直向左走,同时压栈记录走过的路径,当左节点为空时,开始回走,
         回走的同时,遍历右节点,当有左孩子的时候还是照常处理,形成循环
         简单思路: 根节点走左孩子,左孩子为空,走右孩子,右孩子有左孩子,走左孩子,左孩子为空,走右孩子...
@@ -30,6 +30,26 @@ public class PreorderTraversal144 {
             } else {// 回走
                 TreeNode pop = stack.pop();
                 cur = pop.right;
+            }
+        }
+        return result;
+    }
+
+    // 方法三 注意先加入右节点 再加入左节点 ，与栈的结构有关
+    public List<Integer> preorderTraversal3(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+        LinkedList<TreeNode> stack = new LinkedList<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            result.add(node.val);
+
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
             }
         }
         return result;

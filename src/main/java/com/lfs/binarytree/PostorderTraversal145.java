@@ -28,7 +28,7 @@ public class PostorderTraversal145 {
             } else {
                 TreeNode peek = stack.peek();
                 if (peek.right == pop || peek.right == null) {// 重点代码
-                    result.add(peek.val);
+                    result.add(peek.val);// 左右节点都处理完了,需要pop了再收集节点
                     pop = stack.pop();
                 } else {// 否则说明 还有右孩子,需要遍历
                     cur = peek.right;

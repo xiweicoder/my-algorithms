@@ -34,4 +34,14 @@ public class LargestValues515 {
         }
         return resList;
     }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(
+                new TreeNode(new TreeNode(4), 2, null),
+                1,
+                new TreeNode(new TreeNode(5), 3, new TreeNode(6))
+        );
+        List<Integer> list = new LargestValues515().largestValues(root);
+        System.out.println(list);
+    }
 }

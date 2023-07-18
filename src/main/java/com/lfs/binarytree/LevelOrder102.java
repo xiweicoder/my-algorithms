@@ -25,8 +25,8 @@ public class LevelOrder102 {
             List<Integer> list = new ArrayList<>();
             int size = queue.size();// 提前记录大小 ,不能写在while中,size是一直在变化的(加加减减)
 
-            while (size > 0) {
-                TreeNode poll = queue.poll();// 弹出一个元素 size就--
+            for (int i = 0; i < size; i++) {
+                TreeNode poll = queue.poll();//  弹出一个元素 size就--
                 list.add(poll.val);// listItem收集数值
 
                 if (poll.left != null) {
@@ -35,9 +35,8 @@ public class LevelOrder102 {
                 if (poll.right != null) {
                     queue.offer(poll.right);
                 }
-                size--;
             }
-            resList.add(list);// list加入listItem
+            resList.add(list);//listItem 加入 list
         }
         return resList;
     }

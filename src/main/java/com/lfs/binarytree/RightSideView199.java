@@ -13,6 +13,8 @@ public class RightSideView199 {
         每次返回每层的最后一个字段即可。
         每次poll一个元素的同时,都会加入一些新的元素,而最后加入的元素就是我们看到的节点,也是最后poll的元素,
         因为i与size是差1的,所以当每层最后一个元素时(我们看到的)即 size-1 = i 加入集合
+
+        因为i++ 又因为i和size相差1所以 要求最右边的值: i == size - 1
      */
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> result = new ArrayList<>();
@@ -37,5 +39,15 @@ public class RightSideView199 {
             }
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(
+                new TreeNode(new TreeNode(4), 2, null),
+                1,
+                new TreeNode(new TreeNode(5), 3, new TreeNode(6))
+        );
+        List<Integer> list = new RightSideView199().rightSideView(root);
+        System.out.println(list);
     }
 }
