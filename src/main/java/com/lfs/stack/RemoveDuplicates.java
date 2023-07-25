@@ -13,6 +13,7 @@ public class RemoveDuplicates {
             else(peek元素与当前元素相等),pop栈中元素
         最后遍历栈,逆向拼接栈中的元素 并返回
      */
+
     public String removeDuplicates(String s) {
         Stack<Character> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
