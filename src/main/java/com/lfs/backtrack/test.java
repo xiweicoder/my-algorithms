@@ -1,28 +1,37 @@
 package com.lfs.backtrack;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
+/*
+    组合总和
+ */
 public class test {
-    LinkedList<Integer> path = new LinkedList<>();
     List<List<Integer>> result = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
 
-    public List<List<Integer>> combine(int n, int k) {
-        backtracking(n, k, 1);
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        boolean[] used = new boolean[nums.length];
+        Arrays.fill(used, false);
+        backtracking(nums, used);
         return result;
-
     }
 
-    private void backtracking(int n, int k, int startIndex) {
-        if (path.size() == k) {
+    private void backtracking(int[] nums, boolean[] used) {
+        if (nums.length == path.size()) {
             result.add(new ArrayList<>(path));
             return;
         }
-        for (int i = startIndex; i < n; i++) {
-            path.add(startIndex + 1);
-            backtracking(n, k, startIndex + 1);
-            path.pop();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1] == false) continue;
+            if (used[i] == false) {
+                used[i] = true;
+                path.add(nums[i]);
+                backtracking(nums, used);
+                path.remove(path.size() - 1);
+                used[i] = false;
+            }
+
         }
     }
 }
