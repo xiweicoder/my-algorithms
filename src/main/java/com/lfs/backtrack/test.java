@@ -2,36 +2,62 @@ package com.lfs.backtrack;
 
 import java.util.*;
 
-/*
-    组合总和
- */
 public class test {
-    List<List<Integer>> result = new ArrayList<>();
-    List<Integer> path = new ArrayList<>();
 
-    public List<List<Integer>> permuteUnique(int[] nums) {
-        boolean[] used = new boolean[nums.length];
-        Arrays.fill(used, false);
-        backtracking(nums, used);
-        return result;
+    List<List<String>> res = new ArrayList<>();
+
+    public List<List<String>> solveNQueens(int n) {
+        char[][] chess = new char[n][n];// 构造棋盘
+        for (char[] c : chess) {
+            Arrays.fill(c, '.');//题目要求
+        }
+        backtracking(n, 0, chess);
+        return res;
     }
 
-    private void backtracking(int[] nums, boolean[] used) {
-        if (nums.length == path.size()) {
-            result.add(new ArrayList<>(path));
+    private void backtracking(int n, int row, char[][] chess) {
+        if (row == n) {
+            res.add(charToList(chess));
             return;
         }
 
-        for (int i = 0; i < nums.length; i++) {
-            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1] == false) continue;
-            if (used[i] == false) {
-                used[i] = true;
-                path.add(nums[i]);
-                backtracking(nums, used);
-                path.remove(path.size() - 1);
-                used[i] = false;
+        for (int col = 0; col < n; col++) {
+            if (isValid(row, col, n, chess)) {
+                chess[row][col] = 'Q';
+                backtracking(n, row + 1, chess);
+                chess[row][col] = '.';
             }
-
         }
     }
+
+    private boolean isValid(int row, int col, int n, char[][] chess) {
+        for (int i = 0; i < row; i++) {
+            if (chess[i][col] == 'Q') {
+                return false;
+            }
+        }
+
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (chess[i][j] == 'Q') {
+                return false;
+            }
+        }
+        for (int i = row - 1, j = col + 1; i >= 0 && j <= n - 1; i--, j++) {
+            if (chess[i][j] == 'Q') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //二维数组转string类型list
+    private List<String> charToList(char[][] chess) {
+        ArrayList<String> list = new ArrayList<>();
+        for (char[] c : chess) {
+            list.add(String.valueOf(c));
+        }
+        return list;
+    }
+
+
 }
