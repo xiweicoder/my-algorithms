@@ -1,22 +1,22 @@
 package com.lfs.greedy;
 
 class test {
-    public int largestSumAfterKNegations(int[] nums, int k) {
+    public int monotoneIncreasingDigits(int n) {
+        String s = String.valueOf(n);
+        char[] chars = s.toCharArray();
 
-        int min = -101;
-        int sum = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (k > 0 && nums[i] < 0) {
-                nums[i] = -nums[i];
-                k--;
+        int start = s.length();
+
+        for (int i = s.length() - 2; i >= 0; i--) {
+            if (chars[i] > chars[i + 1]) {
+                chars[i]--;
+                start = i + 1;
             }
-            min = Math.min(min, nums[i]);
-            sum += nums[i];
         }
-        if (k % 2 != 0) {
-            sum -= 2 * min;
+        for (int i = start; i < s.length(); i++) {
+            chars[i] = '9';
         }
-        return sum;
+        return Integer.parseInt(String.valueOf(chars));
     }
 }
 
