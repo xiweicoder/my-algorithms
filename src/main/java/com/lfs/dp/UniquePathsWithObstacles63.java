@@ -5,6 +5,7 @@ package com.lfs.dp;
  */
 public class UniquePathsWithObstacles63 {
     /*
+        本题与62题就多了一个判断 只有没有障碍的情况才进行操作
         障碍物在棋盘中是1
         obstacleGrid[i][j] = 1 : 表示此处有障碍物
      */
