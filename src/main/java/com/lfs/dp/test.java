@@ -1,18 +1,26 @@
 package com.lfs.dp;
 
 public class test {
-    public int lastStoneWeightII(int[] stones) {
-        int sum = 0;
-        for (int s : stones) {
-            sum += s;
-        }
-        int target = sum >> 1;
-        int[] dp = new int[target + 1];
-        for (int i = 0; i < stones.length; i++) {
-            for (int j = target; j >= stones[i]; j--) {
-                dp[j] = Math.max(dp[j], dp[j - stones[i]] + stones[i]);
+    public int findMaxForm(String[] strs, int m, int n) {
+        int[][] dp = new int[m + 1][n + 1];
+        for (String str : strs) {
+            char[] chars = str.toCharArray();
+            int zeroNum = 0;
+            int oneNum = 0;
+            for (char s : chars) {
+                if (s == '0') {
+                    zeroNum++;
+                } else {
+                    oneNum++;
+                }
+            }
+
+            for (int i = m; i >= zeroNum; i--) {
+                for (int j = n; j >= oneNum; j--) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - zeroNum][j - oneNum] + 1);
+                }
             }
         }
-        return sum - 2 * dp[target];
+        return dp[m][n];
     }
 }
