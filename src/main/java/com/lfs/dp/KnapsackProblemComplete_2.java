@@ -19,10 +19,8 @@ public class KnapsackProblemComplete_2 {
         int[] dp = new int[bagSize + 1];
 
         for (int i = 0; i < weight.length; i++) {
-            for (int j = 1; j < bagSize + 1; j++) {
-                if (j >= weight[i]) {// 放不下
-                    dp[j] = Math.max(dp[j], value[i] + dp[j - weight[i]]);
-                }
+            for (int j = weight[i]; j <= bagSize; j++) { // 遍历背包容量 当此时的背包容量能够装入物品时执行
+                dp[j] = Math.max(dp[j], dp[j - weight[i]] + value[i]);
             }
         }
         // 打印dp数组
