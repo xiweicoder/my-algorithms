@@ -1,22 +1,23 @@
 package com.lfs.dp;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import com.lfs.binarytree.TreeNode;
 
 public class test {
-    public boolean wordBreak(String s, List<String> wordDict) {
-        Set<String> set = new HashSet<>(wordDict);
-        boolean[] dp = new boolean[s.length() + 1];
-        dp[0] = true;
+    public int rob(TreeNode root) {
+        int[] res = robInterval(root);
+        return Math.max(res[0], res[1]);
+    }
 
-        for (int i = 1; i < s.length(); i++) {
-            for (int j = 0; i > j && !dp[i]; j++) {
-                if (set.contains(s.substring(j, i)) && dp[j]) {
-                    dp[i] = true;
-                }
-            }
-        }
-        return dp[s.length()];
+    private int[] robInterval(TreeNode root) {
+        int[] dp = new int[2];
+        if (root == null) return dp;
+
+        int[] left = robInterval(root.left);
+        int[] right = robInterval(root.right);
+
+        dp[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+        dp[1] = root.val + left[0] + right[0];
+
+        return dp;
     }
 }
