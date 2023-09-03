@@ -1,23 +1,22 @@
 package com.lfs.dp;
 
-import com.lfs.binarytree.TreeNode;
 
 public class test {
-    public int rob(TreeNode root) {
-        int[] res = robInterval(root);
-        return Math.max(res[0], res[1]);
-    }
+    public int maxProfit(int k, int[] prices) {
+        if (prices.length == 0) return 0;
+        int len = prices.length;
+        int[][] dp = new int[len][2 * k + 1];
 
-    private int[] robInterval(TreeNode root) {
-        int[] dp = new int[2];
-        if (root == null) return dp;
+        for (int i = 1; i < 2 * k; i += 2) {
+            dp[0][i] = -prices[0];
+        }
 
-        int[] left = robInterval(root.left);
-        int[] right = robInterval(root.right);
-
-        dp[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
-        dp[1] = root.val + left[0] + right[0];
-
-        return dp;
+        for (int i = 1; i < len; i++) {
+            for (int j = 1; j < 2 * k; j += 2) {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - 1] - prices[i]);
+                dp[i][j + 1] = Math.max(dp[i - 1][j + 1], dp[i - 1][j] + prices[i]);
+            }
+        }
+        return dp[len - 1][2 * k];
     }
 }
