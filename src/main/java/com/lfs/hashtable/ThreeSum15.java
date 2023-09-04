@@ -19,7 +19,7 @@ public class ThreeSum15 {
         // a = nums[i], b = nums[left], c = nums[right]
         for (int i = 0; i < nums.length; i++) {
             // 排序之后如果第一个元素已经大于零，那么无论如何组合都不可能凑成三元组，直接返回结果就可以了
-            if (nums[i] > 0) {
+            if (nums[i] > 0) {//每次提前返回的都不同所以是i
                 continue;
             }
 

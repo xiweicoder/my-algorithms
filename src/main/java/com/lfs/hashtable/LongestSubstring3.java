@@ -9,6 +9,10 @@ public class LongestSubstring3 {
 
     public int lengthOfLongestSubstring(String s) {
          /*
+         i     j
+         a b c a b c b b
+         i
+
        [(a,3) (b,1) (c,2)]
 
         b

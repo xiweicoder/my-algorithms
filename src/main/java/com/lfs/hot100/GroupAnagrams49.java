@@ -16,10 +16,10 @@ public class GroupAnagrams49 {
         for (String str : strs) {
             char[] chars = str.toCharArray();
             Arrays.sort(chars);
-            String key = Arrays.toString(chars);
-            List<String> list = map.getOrDefault(key, new ArrayList<>());
+            String sortStr = Arrays.toString(chars);
+            List<String> list = map.getOrDefault(sortStr, new ArrayList<>());
             list.add(str);
-            map.put(key, list);
+            map.put(sortStr, list);
         }
         return new ArrayList<>(map.values());
     }

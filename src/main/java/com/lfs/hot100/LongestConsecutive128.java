@@ -22,13 +22,13 @@ public class LongestConsecutive128 {
             set.add(num);    // 将数组中的值加入哈希表中
         }
         int seqLen;     // 连续序列的长度
-        for (int num : set) {
+        for (int s : set) {
             // 如果当前的数是一个连续序列的起点，统计这个连续序列的长度
-            if (!set.contains(num - 1)) {//起点开始
+            if (!set.contains(s - 1)) {//起点开始
                 seqLen = 1;//知道是起点 那么长度肯定有1了
                 
                 // 一定是++num,不能是num++
-                while (set.contains(++num)) seqLen++;  // 不断查找连续序列，直到num的下一个数不存在于数组中(就是终点)
+                while (set.contains(++s)) seqLen++;  // 不断查找连续序列，直到num的下一个数不存在于数组中(就是终点)
                 res = Math.max(res, seqLen);    // 更新最长连续序列长度
             }
         }
