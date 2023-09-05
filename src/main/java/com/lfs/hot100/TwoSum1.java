@@ -13,9 +13,9 @@ public class TwoSum1 {
             int cur = nums[i];
             int other = target - cur;
             if (map.containsKey(other)) {
-                return new int[]{i, map.get(other)};
+                return new int[]{i, map.get(other)};//本次的索引 以及 上次的索引
             } else {
-                map.put(cur, i);
+                map.put(cur, i);// 没有 则将本次的记录放入
             }
         }
         return null;
