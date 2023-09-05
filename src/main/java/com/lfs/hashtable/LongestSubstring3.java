@@ -7,6 +7,24 @@ import java.util.HashMap;
  */
 public class LongestSubstring3 {
 
+    /*
+            begin: 开始索引位置
+            end: 结束索引位置
+
+            map无重复
+                放入当前元素 索引作为值
+            map重复
+                更新begin
+                    拿到当前重复元素的上一个索引,然后+1,与之前的索引进行对比找最大值
+                然后更新map表(更新操作与添加操作一样)
+
+            流程:
+                a b b a
+                [(a,0)(b,1)]    此时 i=0 j=1
+                [(a,0)(b,2)]    此时 i=2 j=2
+                [(a,3)(b,2)]    此时 i=2 j=3  注意 这里本来map拿到原来a的索引为0然后+1，但我们要取最大值,所以保持原来的2不变
+
+     */
     public int lengthOfLongestSubstring(String s) {
          /*
          i     j
