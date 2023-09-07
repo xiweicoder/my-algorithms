@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 /*
     接雨水
+    详细见代码随想录
  */
 public class Trap42 {
     public int trap(int[] height) {
@@ -21,6 +22,7 @@ public class Trap42 {
                 当前元素: 右柱    i
                 第一次弹出并获取的元素: 中间柱 stack.pop()
                 弹出后获取的栈顶元素: 左柱  stack.peek()
+                类图:   右[中 左]
 
                 像 i stack.pop() stack.peek() 都是索引 (宽)
                 要想求高 或 判断高度大小 别忘了 加 height[]
@@ -28,7 +30,7 @@ public class Trap42 {
          */
         int len = height.length;
         if (len <= 2) return 0;
-       
+
         Deque<Integer> stack = new LinkedList<>();
         stack.push(0);
 
@@ -45,8 +47,9 @@ public class Trap42 {
                     int mid = stack.pop();//在判空前写,在判空内写 判空就没有意义了
                     if (!stack.isEmpty()) {
                         int left = stack.peek();//左柱 当前元素是右柱
-                        int h = Math.min(height[left], height[index]) - height[mid];
-                        int w = index - left - 1;
+                        int right = index;
+                        int h = Math.min(height[left], height[right]) - height[mid];
+                        int w = right - left - 1;
                         int hold = h * w;
                         if (hold > 0) sum += hold;
                     }
